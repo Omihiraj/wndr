@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "154293243629",
+    "project_id": "wndr-c2591",
+    "storage_bucket": "wndr-c2591.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154293243629:android:ea78f3a6fe7375a31586e4",
+        "android_client_info": {
+          "package_name": "com.example.wndr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "154293243629-p3o56r83cpso0lh8ihe7405mlp3iij58.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW9fuYi0N-J6n3by5YvdXeYo_uMro3-xg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "154293243629-p3o56r83cpso0lh8ihe7405mlp3iij58.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
