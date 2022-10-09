@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'views/explore.dart';
 import 'views/favourite.dart';
 import 'views/home.dart';
+import 'views/pages/findbook.dart';
 import 'views/profile.dart';
 import 'widgets/custom_nav_bar.dart';
 import 'constants/config.dart';
@@ -32,8 +34,8 @@ class _MainPageState extends State<MainPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: (context) => const AllService()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const FindBook()));
         },
         backgroundColor: MainColor,
         splashColor: MainfontColor,

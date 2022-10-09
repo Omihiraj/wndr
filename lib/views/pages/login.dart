@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-
+import 'cc/cc_dashboard.dart';
 import '../../constants/config.dart';
 import '../../mainpage.dart';
 import 'register.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final bool? traveller;
+  const LoginPage({this.traveller, super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -18,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
       margin: const EdgeInsets.only(
         top: 25,
       ),
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: MediaQuery.of(context).size.height * 0.2,
       decoration: const BoxDecoration(
           image: DecorationImage(image: AssetImage('assets/3.png'))),
     );
@@ -28,9 +29,9 @@ class _LoginPageState extends State<LoginPage> {
     return const Text(
       'Login',
       style: TextStyle(
-        fontSize: 60,
-        fontWeight: FontWeight.w700,
-        fontFamily: 'WorkSans',
+        fontSize: 48,
+        fontWeight: FontWeight.w600,
+        fontFamily: 'OpenSans',
         color: MainColor,
       ),
     );
@@ -107,12 +108,16 @@ class _LoginPageState extends State<LoginPage> {
   Center loginbtn() {
     return Center(
       child: SizedBox(
-        width: 210,
-        height: 50,
+        width: 250,
+        height: 60,
         child: MaterialButton(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const MainPage()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => widget.traveller!
+                        ? const MainPage()
+                        : const ContentCreator()));
           },
           elevation: 5,
           color: MainColor,
@@ -139,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
             MaterialPageRoute(builder: (context) => const RegisterPage()));
       },
       child: const Text(
-        'clicking here',
+        'SignIn',
         style: TextStyle(
           color: MainColor,
           fontFamily: 'WorkSans',
@@ -149,53 +154,20 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  /* Widget glog() {
-    return InkWell(
-      onTap: (){},
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          image: DecorationImage(
-            image: AssetImage('assets/google.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget tlog() {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          image: DecorationImage(
-            image: AssetImage('assets/twitter.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-    );
-  }
-*/
   Row slog() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SocialLogin(
-          image: const AssetImage('assets/facebook.png'),
+          imageName: 'assets/facebook.png',
           press: () {},
         ),
         SocialLogin(
-          image: const AssetImage('assets/google.png'),
+          imageName: 'assets/google.png',
           press: () {},
         ),
         SocialLogin(
-          image: const AssetImage('assets/twitter.png'),
+          imageName: 'assets/twitter.png',
           press: () {},
         ),
       ],
@@ -226,11 +198,11 @@ class _LoginPageState extends State<LoginPage> {
               ),
               fPassword(),
               const SizedBox(
-                height: 12,
+                height: 16,
               ),
               loginbtn(),
               const SizedBox(
-                height: 12,
+                height: 24,
               ),
               slog(),
               const SizedBox(
@@ -240,13 +212,14 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Are you a ontent creator?',
+                    "Don't have an account?",
                     style: TextStyle(
                       color: MainfontColor,
                       fontFamily: 'WorkSans',
                       fontSize: 15,
                     ),
                   ),
+                  const SizedBox(width: 5),
                   rlink(),
                 ],
               ),
@@ -260,12 +233,12 @@ class _LoginPageState extends State<LoginPage> {
 
 class SocialLogin extends StatelessWidget {
   const SocialLogin({
-    required this.image,
+    required this.imageName,
     required this.press,
     Key? key,
   }) : super(key: key);
 
-  final AssetImage image;
+  final String imageName;
   final VoidCallback press;
 
   @override
@@ -273,16 +246,27 @@ class SocialLogin extends StatelessWidget {
     return MaterialButton(
       onPressed: press,
       child: Container(
-        width: 35,
-        height: 35,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          image: DecorationImage(
-            image: image,
-            fit: BoxFit.cover,
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(10),
+          decoration: const BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromARGB(29, 158, 158, 158),
+                offset: Offset(5, 5),
+                blurRadius: 0.5,
+                spreadRadius: 1,
+              )
+            ],
+            color: Colors.white,
+            shape: BoxShape.circle,
           ),
-        ),
-      ),
+          child: Center(
+            child: Image.asset(
+              imageName,
+              width: 35,
+              height: 35,
+            ),
+          )),
     );
   }
 }

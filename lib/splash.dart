@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'views/pages/login.dart';
+import 'views/pages/accout_type.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,14 +16,16 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         const Duration(seconds: 3),
         () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: ((context) => const LoginPage()))));
+            MaterialPageRoute(builder: ((context) => const AccountType()))));
+    // () => Navigator.pushReplacement(context,
+    //     MaterialPageRoute(builder: ((context) => const Traveller()))));
   }
 
   Padding mainImage() {
     return Padding(
       padding: const EdgeInsets.only(top: 120, left: 50, right: 50),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.7,
+        height: MediaQuery.of(context).size.height * 0.5,
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/4.jpg'),

@@ -1,8 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'dart:io';
 
+import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:wndr/services/fire_service.dart';
+
+import '../../components/components.dart';
 import '../../constants/config.dart';
+import 'addevent.dart';
 
 class AddTour extends StatefulWidget {
   const AddTour({super.key});
@@ -12,8 +19,21 @@ class AddTour extends StatefulWidget {
 }
 
 class _AddTourState extends State<AddTour> {
+  final nameController = TextEditingController();
+  final descripController = TextEditingController();
+  File? image;
+  UploadTask? task;
+  List<String> catList = [
+    "Science",
+    "Adventure",
+    "Science & Art",
+    "Cultural",
+    "Technology"
+  ];
+  List<String> selectedCatList = [];
   TextFormField name() {
     return TextFormField(
+      controller: nameController,
       decoration: const InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(
@@ -24,41 +44,94 @@ class _AddTourState extends State<AddTour> {
     );
   }
 
-  TextField categories() {
-    // ignore: no_leading_underscores_for_local_identifiers
-    final TextEditingController _controller = TextEditingController();
-    var items = ['Art & Culture', 'Art & Culture'];
-    return TextField(
-      controller: _controller,
-      decoration: InputDecoration(
-        hintText: "Art & Culture",
-        hintStyle: const TextStyle(
-            color: SecondfontColor, fontWeight: FontWeight.bold, fontSize: 18),
-        suffixIcon: PopupMenuButton<String>(
-          icon: const Icon(Icons.arrow_drop_down),
-          onSelected: (String value) {
-            _controller.text = value;
-          },
-          itemBuilder: (BuildContext context) {
-            return items.map<PopupMenuItem<String>>((String value) {
-              return PopupMenuItem(
-                value: value,
-                child: Text(value),
+  Widget categoryList() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+          height: 60,
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: catList.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        selectedCatList.add(catList[index]);
+                        catList.removeAt(index);
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(20)),
+                      padding: const EdgeInsets.all(20),
+                      child: Row(children: [
+                        Text(
+                          catList[index],
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        const Icon(Icons.add_circle_rounded,
+                            color: Colors.white)
+                      ]),
+                    ),
+                  ),
+                );
+              })),
+    );
+  }
+
+  Widget categoryBox() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.grey)),
+        width: double.infinity,
+        height: 200,
+        padding: const EdgeInsets.all(8),
+        child: ListView.builder(
+            itemCount: selectedCatList.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(20)),
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        selectedCatList[index],
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      IconButton(
+                        color: Colors.white,
+                        icon: const Icon(Icons.close),
+                        onPressed: () {
+                          setState(() {
+                            catList.add(selectedCatList[index]);
+                            selectedCatList.remove(selectedCatList[index]);
+                          });
+                        },
+                      )
+                    ],
+                  ),
+                ),
               );
-            }).toList();
-          },
-        ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(7.0),
-          ),
-        ),
+            }),
       ),
     );
   }
 
   TextFormField description() {
     return TextFormField(
+      controller: descripController,
       maxLines: 5,
       decoration: const InputDecoration(
         border: OutlineInputBorder(
@@ -68,30 +141,78 @@ class _AddTourState extends State<AddTour> {
     );
   }
 
-  TextFormField heroimg() {
-    return TextFormField(
-      maxLines: 5,
-      decoration: const InputDecoration(
-          border: OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      )),
+  Widget heroImg() {
+    return DottedBorder(
+      borderType: BorderType.RRect,
+      radius: const Radius.circular(12),
+      padding: const EdgeInsets.all(6),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        child: InkWell(
+          onTap: () {
+            pickImage();
+          },
+          child: Container(
+            height: 200,
+            width: double.infinity,
+            color: Colors.grey[200],
+            child: image != null
+                ? Image.file(
+                    image!,
+                    width: double.infinity,
+                  )
+                : Center(
+                    child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text("Select Image"),
+                      Icon(Icons.add_a_photo_outlined)
+                    ],
+                  )),
+          ),
+        ),
+      ),
     );
   }
 
-  Center addbtn() {
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+
+      setState(() {
+        this.image = imageTemporary;
+      });
+    } on PlatformException catch (e) {
+      print("Falied to pick image : $e");
+    }
+  }
+
+  Center nextBtn({context, required String btnText}) {
     return Center(
       child: SizedBox(
         width: 270,
         height: 50,
         child: MaterialButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddEvent(
+                          heroName: nameController.text.trim(),
+                          description: descripController.text.trim(),
+                          catList: selectedCatList,
+                          heroImg: image!,
+                        )));
+          },
           color: MainColor,
           elevation: 5,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
-          child: const Text(
-            'Add Place',
-            style: TextStyle(
+          child: Text(
+            btnText,
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -100,6 +221,37 @@ class _AddTourState extends State<AddTour> {
         ),
       ),
     );
+  }
+
+  Widget uploadBtn() {
+    return Center(
+      child: InkWell(
+        onTap: () {
+          uploadFile();
+        },
+        child: Container(
+          width: 100,
+          decoration: BoxDecoration(
+              color: Colors.green, borderRadius: BorderRadius.circular(10)),
+          padding: const EdgeInsets.all(10.0),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
+            Text("Upload", style: TextStyle(color: Colors.white)),
+            Icon(Icons.upload, color: Colors.white)
+          ]),
+        ),
+      ),
+    );
+  }
+
+  Future uploadFile() async {
+    if (image == null) return;
+    final destination = "images/${image!.path}";
+    task = FireService.uploadImg(destination, image!);
+    if (task == null) return;
+    final snapshot = await task!.whenComplete(() => () {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
+    print(urlDownload);
   }
 
   @override
@@ -147,7 +299,27 @@ class _AddTourState extends State<AddTour> {
                     fontSize: 20),
               ),
               const SizedBox(height: 5),
-              categories(),
+              categoryBox(),
+              categoryList(),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                "Hero Image",
+                style: TextStyle(
+                  color: SecondfontColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              heroImg(),
+              const SizedBox(
+                height: 20,
+              ),
+              uploadBtn(),
               const SizedBox(
                 height: 20,
               ),
@@ -166,22 +338,10 @@ class _AddTourState extends State<AddTour> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
-                "Hero Image",
-                style: TextStyle(
-                  color: SecondfontColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              heroimg(),
+              nextBtn(context: context, btnText: "Next"),
               const SizedBox(
                 height: 20,
               ),
-              addbtn(),
             ],
           ),
         ),

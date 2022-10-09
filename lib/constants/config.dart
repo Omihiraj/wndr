@@ -4,3 +4,5 @@ const Color MainColor = Color(0XFF00A0DD);
 const Color BackgrounsColor = Color(0XFFFFFFFF);
 const Color MainfontColor = Color(0XFFA7A8AD);
 const Color SecondfontColor = Color(0XFF3A4256);
+const Color SearchColor = Color(0XFFF4F4F6);
+

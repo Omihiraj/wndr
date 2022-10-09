@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/config.dart';
+import 'accout_type.dart';
+import 'login.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -16,7 +18,7 @@ class _RegisterPageState extends State<RegisterPage> {
       margin: const EdgeInsets.only(
         top: 25,
       ),
-      height: MediaQuery.of(context).size.height * 0.3,
+      height: MediaQuery.of(context).size.height * 0.2,
       decoration: const BoxDecoration(
           image: DecorationImage(image: AssetImage('assets/3.png'))),
     );
@@ -26,7 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return const Text(
       'Register',
       style: TextStyle(
-        fontSize: 60,
+        fontSize: 48,
         fontWeight: FontWeight.w600,
         fontFamily: 'OpenSans',
         color: MainColor,
@@ -134,7 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Center(
       child: SizedBox(
         width: 270,
-        height: 50,
+        height: 60,
         child: MaterialButton(
           onPressed: () {},
           elevation: 5,
@@ -156,8 +158,12 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget loglink() {
-    return const InkWell(
-      child: Text(
+    return InkWell(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const AccountType()));
+      },
+      child: const Text(
         'Login',
         style: TextStyle(
           color: MainColor,
@@ -199,7 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               cpassword(),
               const SizedBox(
-                height: 15,
+                height: 25,
               ),
               loginbtn(),
               const SizedBox(
@@ -209,7 +215,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    'Have Account? ',
+                    'Have an Account? ',
                     style: TextStyle(
                       color: MainfontColor,
                       fontFamily: 'OpenSans',

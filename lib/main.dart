@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Wndr Travel',
       theme: ThemeData(
+        fontFamily: 'Monterrt',
         primarySwatch: Colors.blue,
       ),
       home: const SplashScreen(),

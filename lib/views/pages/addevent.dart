@@ -1,19 +1,31 @@
+import 'dart:io';
+
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../constants/config.dart';
 
-
-
 class AddEvent extends StatefulWidget {
-  const AddEvent({super.key});
+  String heroName;
+  String description;
+  List<String> catList;
+  File heroImg;
+
+  AddEvent(
+      {super.key,
+      required this.heroName,
+      required this.description,
+      required this.catList,
+      required this.heroImg});
 
   @override
   State<AddEvent> createState() => _AddEventState();
 }
 
 class _AddEventState extends State<AddEvent> {
+  List<XFile>? images;
   TextFormField location() {
     return TextFormField(
       decoration: const InputDecoration(
@@ -82,8 +94,63 @@ class _AddEventState extends State<AddEvent> {
     );
   }
 
+  Future pickImage() async {
+    try {
+      final List<XFile>? images = await ImagePicker().pickMultiImage();
+      if (images == null) return;
+
+      setState(() {
+        this.images = images;
+      });
+    } on PlatformException catch (e) {
+      print("Falied to pick image : $e");
+    }
+  }
+
+  Widget galleryImg() {
+    return DottedBorder(
+      borderType: BorderType.RRect,
+      radius: const Radius.circular(12),
+      padding: const EdgeInsets.all(6),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        child: InkWell(
+          onTap: () {
+            pickImage();
+          },
+          child: Container(
+            height: 200,
+            width: double.infinity,
+            color: Colors.grey[200],
+            child: images != null
+                ? GridView.builder(
+                    itemCount: images!.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4,
+                            crossAxisSpacing: 4.0,
+                            mainAxisSpacing: 4.0),
+                    itemBuilder: (context, int index) {
+                      return Image.file(File(images![index].path));
+                    })
+                : Center(
+                    child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text("Select Image"),
+                      Icon(Icons.add_a_photo_outlined)
+                    ],
+                  )),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(widget.heroName);
+    print(widget.catList);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -152,6 +219,19 @@ class _AddEventState extends State<AddEvent> {
               address(),
               const SizedBox(
                 height: 20,
+              ),
+              const Text(
+                "Gallery",
+                style: TextStyle(
+                  fontFamily: 'WorkSans',
+                  color: SecondfontColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              galleryImg(),
+              const SizedBox(
+                height: 5,
               ),
               const Text(
                 "Entry fee",
