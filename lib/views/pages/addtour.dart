@@ -4,6 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wndr/services/fire_service.dart';
 
@@ -21,6 +22,7 @@ class AddTour extends StatefulWidget {
 class _AddTourState extends State<AddTour> {
   final nameController = TextEditingController();
   final descripController = TextEditingController();
+  String? heroImgUrl;
   File? image;
   UploadTask? task;
   List<String> catList = [
@@ -196,15 +198,25 @@ class _AddTourState extends State<AddTour> {
         height: 50,
         child: MaterialButton(
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AddEvent(
-                          heroName: nameController.text.trim(),
-                          description: descripController.text.trim(),
-                          catList: selectedCatList,
-                          heroImg: image!,
-                        )));
+            if (nameController.text.trim().isEmpty) {
+              popuMessage("Please Enter Name");
+            } else if (descripController.text.trim().isEmpty) {
+              popuMessage("Please Enter Description");
+            } else if (selectedCatList.isEmpty) {
+              popuMessage("Please Select Atleast One Category ");
+            } else if (heroImgUrl == null) {
+              popuMessage("Please Upload Image ");
+            } else {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AddEvent(
+                            heroName: nameController.text.trim(),
+                            description: descripController.text.trim(),
+                            catList: selectedCatList,
+                            heroImg: heroImgUrl!,
+                          )));
+            }
           },
           color: MainColor,
           elevation: 5,
@@ -221,6 +233,33 @@ class _AddTourState extends State<AddTour> {
         ),
       ),
     );
+  }
+
+  popuMessage(String displayMsg) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              content: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.warning, color: Colors.redAccent),
+              const SizedBox(width: 10),
+              Text(
+                displayMsg,
+                style: const TextStyle(color: Colors.redAccent),
+              )
+            ],
+          ));
+        });
+    // return Fluttertoast.showToast(
+    //     msg: displayMsg,
+    //     toastLength: Toast.LENGTH_SHORT,
+    //     gravity: ToastGravity.CENTER,
+    //     timeInSecForIosWeb: 1,
+    //     backgroundColor: Colors.redAccent,
+    //     textColor: Colors.white,
+    //     fontSize: 16.0);
   }
 
   Widget uploadBtn() {
@@ -251,6 +290,9 @@ class _AddTourState extends State<AddTour> {
     if (task == null) return;
     final snapshot = await task!.whenComplete(() => () {});
     final urlDownload = await snapshot.ref.getDownloadURL();
+    setState(() {
+      heroImgUrl = urlDownload;
+    });
     print(urlDownload);
   }
 
