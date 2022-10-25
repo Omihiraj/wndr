@@ -17,8 +17,6 @@ class _SplashScreenState extends State<SplashScreen> {
         const Duration(seconds: 3),
         () => Navigator.pushReplacement(context,
             MaterialPageRoute(builder: ((context) => const AccountType()))));
-    // () => Navigator.pushReplacement(context,
-    //     MaterialPageRoute(builder: ((context) => const Traveller()))));
   }
 
   Padding mainImage() {
@@ -28,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         height: MediaQuery.of(context).size.height * 0.5,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/4.jpg'),
+            image: AssetImage('assets/6.png'),
           ),
         ),
       ),
@@ -40,6 +38,8 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           mainImage(),
         ],

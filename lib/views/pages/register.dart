@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/config.dart';
 import 'accout_type.dart';
@@ -25,13 +26,14 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Widget register() {
-    return const Text(
+    return Text(
       'Register',
-      style: TextStyle(
-        fontSize: 48,
-        fontWeight: FontWeight.w600,
-        fontFamily: 'OpenSans',
-        color: MainColor,
+      style: GoogleFonts.workSans(
+        textStyle: const TextStyle(
+          fontSize: 45,
+          fontWeight: FontWeight.w600,
+          color: MainColor,
+        ),
       ),
     );
   }
@@ -40,12 +42,15 @@ class _RegisterPageState extends State<RegisterPage> {
     return Container(
       margin: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
-        decoration: const InputDecoration(
-          border: UnderlineInputBorder(),
+        decoration: InputDecoration(
+          border: const UnderlineInputBorder(),
           labelText: 'Your Name',
-          labelStyle: TextStyle(
-            color: MainfontColor,
-            fontFamily: 'OpenSans',
+          labelStyle: GoogleFonts.workSans(
+            textStyle: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              color: MainfontColor,
+            ),
           ),
         ),
       ),
@@ -56,12 +61,15 @@ class _RegisterPageState extends State<RegisterPage> {
     return Container(
       margin: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
-        decoration: const InputDecoration(
-          border: UnderlineInputBorder(),
+        decoration: InputDecoration(
+          border: const UnderlineInputBorder(),
           labelText: 'Your Email',
-          labelStyle: TextStyle(
-            color: MainfontColor,
-            fontFamily: 'OpenSans',
+          labelStyle: GoogleFonts.workSans(
+            textStyle: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              color: MainfontColor,
+            ),
           ),
         ),
       ),
@@ -76,9 +84,12 @@ class _RegisterPageState extends State<RegisterPage> {
         decoration: InputDecoration(
           border: const UnderlineInputBorder(),
           labelText: 'Password',
-          labelStyle: const TextStyle(
-            color: MainfontColor,
-            fontFamily: 'OpenSans',
+          labelStyle: GoogleFonts.workSans(
+            textStyle: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              color: MainfontColor,
+            ),
           ),
           suffixIcon: isPassVisivible
               ? InkWell(
@@ -87,7 +98,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       isPassVisivible = false;
                     });
                   },
-                  child: const Icon(Icons.visibility))
+                  child: const Icon(
+                    Icons.visibility,
+                    color: Colors.black,
+                  ))
               : InkWell(
                   onTap: () {
                     setState(() {
@@ -108,9 +122,12 @@ class _RegisterPageState extends State<RegisterPage> {
         decoration: InputDecoration(
           border: const UnderlineInputBorder(),
           labelText: 'Confirm Password',
-          labelStyle: const TextStyle(
-            color: MainfontColor,
-            fontFamily: 'OpenSans',
+          labelStyle: GoogleFonts.workSans(
+            textStyle: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              color: MainfontColor,
+            ),
           ),
           suffixIcon: isPassVisivible
               ? InkWell(
@@ -119,7 +136,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       isPassVisivible = false;
                     });
                   },
-                  child: const Icon(Icons.visibility))
+                  child: const Icon(
+                    Icons.visibility,
+                    color: Colors.black,
+                  ))
               : InkWell(
                   onTap: () {
                     setState(() {
@@ -143,13 +163,14 @@ class _RegisterPageState extends State<RegisterPage> {
           color: MainColor,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20))),
-          child: const Text(
+          child: Text(
             "Register",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'OpenSans',
+            style: GoogleFonts.montserrat(
+              textStyle: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ),
@@ -163,12 +184,14 @@ class _RegisterPageState extends State<RegisterPage> {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const AccountType()));
       },
-      child: const Text(
+      child: Text(
         'Login',
-        style: TextStyle(
-          color: MainColor,
-          fontFamily: 'OpenSans',
-          fontSize: 15,
+        style: GoogleFonts.workSans(
+          textStyle: const TextStyle(
+            color: MainColor,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );
@@ -178,59 +201,64 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BackgrounsColor,
-      body: ListView(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              logo(),
-              register(),
-              const SizedBox(
-                height: 10,
-              ),
-              name(),
-              const SizedBox(
-                height: 10,
-              ),
-              email(),
-              const SizedBox(
-                height: 10,
-              ),
-              password(),
-              const SizedBox(
-                height: 10,
-              ),
-              cpassword(),
-              const SizedBox(
-                height: 25,
-              ),
-              loginbtn(),
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Have an Account? ',
-                    style: TextStyle(
-                      color: MainfontColor,
-                      fontFamily: 'OpenSans',
-                      fontSize: 15,
+      body: Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: ListView(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 25,
+                ),
+                logo(),
+                register(),
+                const SizedBox(
+                  height: 10,
+                ),
+                name(),
+                const SizedBox(
+                  height: 10,
+                ),
+                email(),
+                const SizedBox(
+                  height: 10,
+                ),
+                password(),
+                const SizedBox(
+                  height: 10,
+                ),
+                cpassword(),
+                const SizedBox(
+                  height: 30,
+                ),
+                loginbtn(),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Have an Account? ',
+                      style: GoogleFonts.workSans(
+                        textStyle: const TextStyle(
+                          color: MainfontColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
-                  ),
-                  loglink(),
-                  const SizedBox(
-                    height: 30,
-                  )
-                ],
-              ),
-            ],
-          ),
-        ],
+                    loglink(),
+                    const SizedBox(
+                      height: 30,
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

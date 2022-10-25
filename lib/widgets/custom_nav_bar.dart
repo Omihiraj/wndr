@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants/config.dart';
 
@@ -40,24 +39,38 @@ class _CustomNavBarState extends State<CustomNavBar> {
         child: BottomAppBar(
           elevation: 20.0,
           shape: const CircularNotchedRectangle(),
-          notchMargin: 8,
+          notchMargin: 10,
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             tabItem(
               index: 0,
               icon: const Icon(Icons.home_outlined),
+              text: ('home'),
             ),
-            tabItem(index: 1, icon: const Icon(Icons.map_sharp)),
+            tabItem(
+              index: 1,
+              icon: const Icon(Icons.map_sharp),
+              text: ('Explore'),
+            ),
             placeholder,
-            tabItem(index: 2, icon: const Icon(Icons.favorite_outline)),
-            tabItem(index: 3, icon: const Icon(Icons.person_outline))
+            tabItem(
+              index: 2,
+              icon: const Icon(Icons.favorite_outline),
+              text: ('Favourites'),
+            ),
+            tabItem(
+              index: 3,
+              icon: const Icon(Icons.person_outline),
+              text: ('Profile'),
+            ),
           ]),
         ),
       ),
     );
   }
 
-  Widget tabItem({required int index, required Icon icon}) {
+  Widget tabItem(
+      {required int index, required Icon icon, required String text}) {
     final isSelected = index == widget.index;
     return IconTheme(
       data: IconThemeData(
@@ -66,7 +79,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
       child: IconButton(
         iconSize: 38,
         icon: icon,
-        onPressed: () => widget.onChangedTab(index),
+        onPressed: () => widget.onChangedTab(index),  
       ),
     );
   }

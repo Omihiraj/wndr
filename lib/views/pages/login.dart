@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../main_nav_bar.dart';
 import 'cc/cc_dashboard.dart';
 import '../../constants/config.dart';
-import '../../mainpage.dart';
+
 import 'register.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
   final bool? traveller;
@@ -26,13 +28,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Text name() {
-    return const Text(
+    return Text(
       'Login',
-      style: TextStyle(
-        fontSize: 48,
-        fontWeight: FontWeight.w600,
-        fontFamily: 'OpenSans',
-        color: MainColor,
+      style: GoogleFonts.workSans(
+        textStyle: const TextStyle(
+          fontSize: 45,
+          fontWeight: FontWeight.w600,
+          color: MainColor,
+        ),
       ),
     );
   }
@@ -41,12 +44,13 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       margin: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(
-        decoration: const InputDecoration(
-          border: UnderlineInputBorder(),
+        decoration: InputDecoration(
+          border: const UnderlineInputBorder(),
           labelText: 'Your Email',
-          labelStyle: TextStyle(
+          labelStyle: GoogleFonts.workSans(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
             color: MainfontColor,
-            fontFamily: 'WorkSans',
           ),
         ),
       ),
@@ -61,9 +65,10 @@ class _LoginPageState extends State<LoginPage> {
         decoration: InputDecoration(
           border: const UnderlineInputBorder(),
           labelText: 'Password',
-          labelStyle: const TextStyle(
+          labelStyle: GoogleFonts.workSans(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
             color: MainfontColor,
-            fontFamily: 'WorkSans',
           ),
           suffixIcon: isPassVisivible
               ? InkWell(
@@ -72,7 +77,10 @@ class _LoginPageState extends State<LoginPage> {
                       isPassVisivible = false;
                     });
                   },
-                  child: const Icon(Icons.visibility))
+                  child: const Icon(
+                    Icons.visibility,
+                    color: Colors.black,
+                  ))
               : InkWell(
                   onTap: () {
                     setState(() {
@@ -90,16 +98,19 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.only(right: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: const [
+        children: [
           InkWell(
-              child: Text(
-            'Forgot Password?',
-            style: TextStyle(
-              fontSize: 15,
-              color: MainfontColor,
-              fontFamily: 'WorkSans',
+            child: Text(
+              'Forgot Password?',
+              style: GoogleFonts.workSans(
+                textStyle: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
+                  color: MainfontColor,
+                ),
+              ),
             ),
-          )),
+          ),
         ],
       ),
     );
@@ -116,22 +127,21 @@ class _LoginPageState extends State<LoginPage> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => widget.traveller!
-                        ? const MainPage()
+                        ? const CustomNavBar()
                         : const ContentCreator()));
           },
           elevation: 5,
           color: MainColor,
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20))),
-          child: const Text(
-            "Login",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Montserrat',
-            ),
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(19))),
+          child: Text("Login",
+              style: GoogleFonts.montserrat(
+                textStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 19,
+                  fontWeight: FontWeight.w600,
+                ),
+              )),
         ),
       ),
     );
@@ -143,12 +153,14 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const RegisterPage()));
       },
-      child: const Text(
-        'SignIn',
-        style: TextStyle(
-          color: MainColor,
-          fontFamily: 'WorkSans',
-          fontSize: 15,
+      child: Text(
+        'Clickng here',
+        style: GoogleFonts.workSans(
+          textStyle: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: MainColor,
+          ),
         ),
       ),
     );
@@ -178,54 +190,59 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BackgrounsColor,
-      body: ListView(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 25,
-              ),
-              logo(),
-              name(),
-              email(),
-              const SizedBox(
-                height: 10,
-              ),
-              password(),
-              const SizedBox(
-                height: 12,
-              ),
-              fPassword(),
-              const SizedBox(
-                height: 16,
-              ),
-              loginbtn(),
-              const SizedBox(
-                height: 24,
-              ),
-              slog(),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Don't have an account?",
-                    style: TextStyle(
-                      color: MainfontColor,
-                      fontFamily: 'WorkSans',
-                      fontSize: 15,
+      body: Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: ListView(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 50,
+                ),
+                logo(),
+                name(),
+                email(),
+                const SizedBox(
+                  height: 10,
+                ),
+                password(),
+                const SizedBox(
+                  height: 12,
+                ),
+                fPassword(),
+                const SizedBox(
+                  height: 16,
+                ),
+                loginbtn(),
+                const SizedBox(
+                  height: 24,
+                ),
+                slog(),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Are you a content creator?",
+                      style: GoogleFonts.workSans(
+                        textStyle: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: MainfontColor,
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 5),
-                  rlink(),
-                ],
-              ),
-            ],
-          ),
-        ],
+                    const SizedBox(width: 5),
+                    rlink(),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -247,15 +264,15 @@ class SocialLogin extends StatelessWidget {
       onPressed: press,
       child: Container(
           alignment: Alignment.center,
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: const BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Color.fromARGB(29, 158, 158, 158),
-                offset: Offset(5, 5),
-                blurRadius: 0.5,
-                spreadRadius: 1,
-              )
+                  color: Color.fromARGB(29, 158, 158, 158),
+                  offset: Offset(1, 7),
+                  blurRadius: 0.1,
+                  spreadRadius: 1,
+                  blurStyle: BlurStyle.inner)
             ],
             color: Colors.white,
             shape: BoxShape.circle,
