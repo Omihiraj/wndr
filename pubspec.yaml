@@ -41,7 +41,10 @@ dependencies:
   geolocator: ^9.0.2
   firebase_storage: ^10.3.9
   font_awesome_flutter: ^10.2.1
+
   google_fonts: ^3.0.1
+
+
 
 dev_dependencies:
   flutter_test:

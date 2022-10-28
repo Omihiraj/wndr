@@ -11,6 +11,7 @@ class Tour {
       required this.images,
       required this.address,
       required this.location,
+      required this.entryPrice,
       this.ratings});
   String heroName;
   String heroDes;
@@ -22,6 +23,7 @@ class Tour {
   String address;
   GeoPoint location;
   double? ratings;
+  int entryPrice;
 
   factory Tour.fromJson(Map<String, dynamic> json) => Tour(
       address: json["address"],
@@ -33,7 +35,8 @@ class Tour {
       locDes: json["location-description"],
       locName: json["location-name"],
       location: json["google-location"],
-      ratings: json["ratings"]);
+      ratings: json["ratings"],
+      entryPrice: json["entry-fee"]);
 
   Map<String, dynamic> toJson() => {
         "name": heroName,
@@ -42,9 +45,10 @@ class Tour {
         "category": category,
         "location-name": locName,
         "location-description": locDes,
-        "location": location,
+        "google-location": location,
         "address": address,
         "images": images,
-        "ratings": ratings
+        "ratings": ratings,
+        "entry-fee": entryPrice
       };
 }
