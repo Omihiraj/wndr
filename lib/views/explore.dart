@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:wndr/constants/config.dart';
 
 import 'pages/explore_activities_page.dart';
@@ -30,10 +31,11 @@ class _ExploreState extends State<Explore> {
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: TextField(
           controller: textEditingControllerSearch,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
               hintText: "Search",
-              prefixIcon: Icon(Icons.search),
-              hintStyle: TextStyle(color: Colors.grey),
+              labelStyle: GoogleFonts.montserrat(),
+              prefixIcon: const Icon(Icons.search),
+              hintStyle: const TextStyle(color: Colors.grey),
               border: InputBorder.none),
         ),
       ),
@@ -76,10 +78,13 @@ class _ExploreState extends State<Explore> {
             child: Center(
               child: Text(
                 "All",
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
+                  textStyle: TextStyle(
                     color: index == 0 ? Colors.white : Colors.grey,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
               ),
             )),
       ),
@@ -104,10 +109,13 @@ class _ExploreState extends State<Explore> {
             child: Center(
               child: Text(
                 "Tours",
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
+                  textStyle: TextStyle(
                     color: index == 1 ? Colors.white : Colors.grey,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
               ),
             )),
       ),
@@ -132,10 +140,13 @@ class _ExploreState extends State<Explore> {
             child: Center(
               child: Text(
                 "Activities",
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
+                  textStyle: TextStyle(
                     color: index == 2 ? Colors.white : Colors.grey,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
               ),
             )),
       ),
@@ -160,10 +171,13 @@ class _ExploreState extends State<Explore> {
             child: Center(
               child: Text(
                 "Flights",
-                style: TextStyle(
+                style: GoogleFonts.montserrat(
+                  textStyle: TextStyle(
                     color: index == 3 ? Colors.white : Colors.grey,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
               ),
             )),
       ),
@@ -185,19 +199,18 @@ class _ExploreState extends State<Explore> {
                 Icons.arrow_back_ios,
                 color: MainfontColor,
               )),
-          title: const Text(
+          title: Text(
             "Bookings",
-            style: TextStyle(
-              color: SecondfontColor,
-              fontFamily: 'WorkSans',
-              fontWeight: FontWeight.bold,
-              fontSize: 19,
+            style: GoogleFonts.workSans(
+              textStyle: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: SecondfontColor),
             ),
           ),
         ),
         body: Center(
           child: ListView(
-            // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               searchFeild(),
               SizedBox(height: 60, child: buidNavButtons(width)),

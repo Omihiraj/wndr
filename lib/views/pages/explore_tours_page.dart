@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:wndr/constants/config.dart';
 
 import '../../models/explore_tour_data.dart';
@@ -41,7 +43,7 @@ class _ToursPageState extends State<ToursPage> {
     //double height = ((MediaQuery.of(context).size.height));
     return Container(
       width: width,
-      height: 200,
+      height: 189,
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -53,7 +55,7 @@ class _ToursPageState extends State<ToursPage> {
       child: Stack(
         children: [
           Positioned(
-            left: 40,
+            left: 20,
             bottom: 20,
             child: InkWell(
               onTap: () {},
@@ -62,8 +64,8 @@ class _ToursPageState extends State<ToursPage> {
                   borderRadius: BorderRadius.circular(10),
                   color: const Color.fromARGB(230, 255, 255, 255),
                 ),
-                width: width - 80,
-                height: 60,
+                width: width - 30,
+                height: 66,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                   child: Row(
@@ -75,27 +77,35 @@ class _ToursPageState extends State<ToursPage> {
                         children: [
                           Text(
                             title,
-                            style: const TextStyle(
-                              color: SecondfontColor,
-                              fontSize: 25,
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.w400,
+                            style: GoogleFonts.montserrat(
+                              textStyle: const TextStyle(
+                                color: SecondfontColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 5),
                           Row(
                             children: [
-                              const Icon(
-                                Icons.location_on,
-                                color: MainColor,
-                                size: 15,
+                              const ImageIcon(
+                                AssetImage(
+                                  "assets/location.png",
+                                ),
+                                color: MainfontColor,
+                                size: 11,
+                              ),
+                              const SizedBox(
+                                width: 5,
                               ),
                               Text(
                                 location,
-                                style: const TextStyle(
-                                  color: MainColor,
-                                  fontSize: 13,
-                                  fontFamily: 'Montserrat',
+                                style: GoogleFonts.montserrat(
+                                  textStyle: const TextStyle(
+                                    color: MainColor,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             ],
@@ -103,10 +113,7 @@ class _ToursPageState extends State<ToursPage> {
                         ],
                       ),
                       const Icon(
-                        Icons.arrow_forward_sharp,
-                        color: Colors.white,
-                      ),
-                      const Icon(
+                        size: 14,
                         Icons.arrow_forward_ios,
                         color: MainColor,
                       ),

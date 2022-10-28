@@ -5,10 +5,15 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../constants/config.dart';
+
+import 'addtour.dart';
+
 import '../../services/fire_service.dart';
+
 
 class AddEvent extends StatefulWidget {
   String heroName;
@@ -135,13 +140,14 @@ class _AddEventState extends State<AddEvent> {
           elevation: 5,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
-          child: const Text(
+          child: Text(
             'Save and Close',
-            style: TextStyle(
-              fontFamily: 'Montserrat',
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+            style: GoogleFonts.workSans(
+              textStyle: const TextStyle(
+                fontSize: 19,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
@@ -201,6 +207,7 @@ class _AddEventState extends State<AddEvent> {
 
   Widget galleryImg() {
     return DottedBorder(
+      color: Colors.grey,
       borderType: BorderType.RRect,
       radius: const Radius.circular(12),
       padding: const EdgeInsets.all(6),
@@ -211,7 +218,7 @@ class _AddEventState extends State<AddEvent> {
             pickImage();
           },
           child: Container(
-            height: 200,
+            height: 180,
             width: double.infinity,
             color: Colors.grey[200],
             child: images != null
@@ -226,11 +233,39 @@ class _AddEventState extends State<AddEvent> {
                       return Image.file(File(images![index].path));
                     })
                 : Center(
-                    child: Row(
+                    child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text("Select Image"),
-                      Icon(Icons.add_a_photo_outlined)
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.file_copy,
+                        color: MainColor,
+                        size: 40,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "Choose file here...",
+                        style: GoogleFonts.workSans(
+                          textStyle: const TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              color: SecondfontColor),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        "(Max file size: 50mb)",
+                        style: GoogleFonts.workSans(
+                          textStyle: const TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey),
+                        ),
+                      ),
                     ],
                   )),
           ),
@@ -248,7 +283,10 @@ class _AddEventState extends State<AddEvent> {
         elevation: 0,
         backgroundColor: BackgrounsColor,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AddTour()));
+          },
           icon: const Icon(
             Icons.arrow_back_ios,
             color: Colors.grey,
@@ -256,7 +294,7 @@ class _AddEventState extends State<AddEvent> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
+        padding: const EdgeInsets.only(left: 15, right: 15),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -264,13 +302,14 @@ class _AddEventState extends State<AddEvent> {
               const SizedBox(
                 height: 15,
               ),
-              const Text(
+              Text(
                 "Location",
-                style: TextStyle(
-                  color: SecondfontColor,
-                  fontFamily: 'WorkSans',
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                style: GoogleFonts.workSans(
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: SecondfontColor,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -280,13 +319,14 @@ class _AddEventState extends State<AddEvent> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
+              Text(
                 "Description",
-                style: TextStyle(
-                  fontFamily: 'WorkSans',
-                  color: SecondfontColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                style: GoogleFonts.workSans(
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: SecondfontColor,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -296,13 +336,14 @@ class _AddEventState extends State<AddEvent> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
+              Text(
                 "Address",
-                style: TextStyle(
-                  fontFamily: 'WorkSans',
-                  color: SecondfontColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                style: GoogleFonts.workSans(
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: SecondfontColor,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -312,30 +353,39 @@ class _AddEventState extends State<AddEvent> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
+              Text(
                 "Gallery",
-                style: TextStyle(
-                  fontFamily: 'WorkSans',
-                  color: SecondfontColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                style: GoogleFonts.workSans(
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: SecondfontColor,
+                  ),
                 ),
               ),
-              galleryImg(),
               const SizedBox(
                 height: 5,
               ),
+
+              galleryImg(),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+
               uploadBtn(),
               const SizedBox(
                 height: 5,
               ),
               const Text(
+
                 "Entry fee",
-                style: TextStyle(
-                  fontFamily: 'WorkSans',
-                  color: SecondfontColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                style: GoogleFonts.workSans(
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: SecondfontColor,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -346,6 +396,9 @@ class _AddEventState extends State<AddEvent> {
                 height: 20,
               ),
               savebtn(),
+              const SizedBox(
+                height: 20,
+              )
             ],
           ),
         ),

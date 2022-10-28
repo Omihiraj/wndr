@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/config.dart';
 
@@ -43,25 +44,30 @@ class _ProfilePageState extends State<ProfilePage> {
           padding: const EdgeInsets.only(left: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              SizedBox(
+            children: [
+              const SizedBox(
                 height: 5,
               ),
               Text(
                 "Profile Name",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                style: GoogleFonts.montserrat(
+                  textStyle: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Text(
                 "TAG LINE",
-                style: TextStyle(
-                  color: Colors.white,
+                style: GoogleFonts.montserrat(
+                  textStyle: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white),
                 ),
               ),
             ],
@@ -75,47 +81,47 @@ class _ProfilePageState extends State<ProfilePage> {
     return Column(
       children: [
         ProfileMenu(
-          icon: (Icons.person),
+          img: "assets/EditProfile.png",
           text: ('Edit Profile'),
           press: () {},
         ),
         const SizedBox(
-          height: 5,
+          height: 9,
         ),
         ProfileMenu(
-          icon: (Icons.location_on),
+          img: "assets/Address.png",
           text: ('Address'),
           press: () {},
         ),
         const SizedBox(
-          height: 5,
+          height: 9,
         ),
         ProfileMenu(
-          icon: (Icons.home),
+          img: "assets/Bookings.png",
           text: ('Bookings'),
           press: () {},
         ),
         const SizedBox(
-          height: 5,
+          height: 9,
         ),
         ProfileMenu(
-          icon: (Icons.production_quantity_limits),
+          img: "assets/MyProducts.png",
           text: ('My Products'),
           press: () {},
         ),
         const SizedBox(
-          height: 5,
+          height: 9,
         ),
         ProfileMenu(
-          icon: (Icons.notifications),
+          img: "assets/Notification.png",
           text: ('Notification'),
           press: () {},
         ),
         const SizedBox(
-          height: 5,
+          height: 9,
         ),
         ProfileMenu(
-          icon: (Icons.payments),
+          img: "assets/payment.png",
           text: ('Payment Settings'),
           press: () {},
         ),
@@ -137,10 +143,14 @@ class _ProfilePageState extends State<ProfilePage> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: BackgrounsColor,
-        title: const Text(
+        title: Text(
           'Profile',
-          style: TextStyle(
-            color: SecondfontColor,
+          style: GoogleFonts.workSans(
+            textStyle: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: SecondfontColor,
+            ),
           ),
         ),
       ),
@@ -165,14 +175,16 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(
                 height: 20,
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 10),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
                 child: Text(
                   "Your Details",
-                  style: TextStyle(
-                    color: SecondfontColor,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                  style: GoogleFonts.workSans(
+                    textStyle: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: SecondfontColor,
+                    ),
                   ),
                 ),
               ),
@@ -191,19 +203,19 @@ class _ProfilePageState extends State<ProfilePage> {
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({
     required this.text,
-    required this.icon,
+    required this.img,
     required this.press,
     Key? key,
   }) : super(key: key);
 
   final String text;
-  final IconData icon;
+  final String img;
   final VoidCallback press;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: 63,
       width: MediaQuery.of(context).size.width - 30,
       decoration: const BoxDecoration(
           color: Colors.white,
@@ -214,26 +226,29 @@ class ProfileMenu extends StatelessWidget {
           onPressed: press,
           child: Row(
             children: [
-              Icon(
-                icon,
-                color: MainColor,
-                size: 27,
+              Image.asset(
+                img,
+                width: 50,
+                height: 50,
               ),
               const SizedBox(
-                width: 20,
+                width: 30,
               ),
               Text(
                 text,
-                style: const TextStyle(
-                  color: SecondfontColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
+                style: GoogleFonts.montserrat(
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: SecondfontColor,
+                  ),
                 ),
               ),
               const Spacer(),
               const Icon(
                 Icons.arrow_forward_ios,
                 color: MainColor,
+                size: 19,
               ),
             ],
           ),

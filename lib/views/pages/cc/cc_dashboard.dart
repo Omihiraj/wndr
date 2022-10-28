@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../components/components.dart';
 import '../../../constants/config.dart';
@@ -41,34 +42,43 @@ class _ContentCreatorState extends State<ContentCreator> {
             padding: const EdgeInsets.only(
                 top: 8.0, bottom: 2.0, left: 8.0, right: 8.0),
             child: RichText(
-              text: const TextSpan(
+              text: TextSpan(
                 text: 'Hello ',
-                style: TextStyle(
+                style: GoogleFonts.workSans(
+                  textStyle: const TextStyle(
+                    fontSize: 33,
+                    fontWeight: FontWeight.w600,
                     color: Colors.black,
-                    fontFamily: 'OpenSans',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 26),
+                  ),
+                ),
                 children: [
                   TextSpan(
-                      text: 'Creators',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: MainColor,
-                          fontFamily: 'OpenSans',
-                          fontSize: 26)),
+                    text: 'Creators',
+                    style: GoogleFonts.workSans(
+                      textStyle: const TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w600,
+                        color: MainColor,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
-          const Padding(
-            padding:
-                EdgeInsets.only(top: 2.0, bottom: 8.0, left: 8.0, right: 8.0),
-            child: Text("Add new places in your country",
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey,
-                    fontFamily: 'OpenSans',
-                    fontSize: 14)),
+          Padding(
+            padding: const EdgeInsets.only(
+                top: 2.0, bottom: 8.0, left: 8.0, right: 8.0),
+            child: Text(
+              "Add new places in your country",
+              style: GoogleFonts.montserrat(
+                textStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
           ),
           const SizedBox(height: 10),
           SizedBox(
@@ -109,7 +119,7 @@ class _ContentCreatorState extends State<ContentCreator> {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    crossAxisSpacing: 4.0,
+                                    crossAxisSpacing: 3.0,
                                     mainAxisSpacing: 4.0),
                             itemCount: tours.length,
                             itemBuilder: (BuildContext context, int index) {
@@ -143,11 +153,17 @@ class _ContentCreatorState extends State<ContentCreator> {
             borderRadius: BorderRadius.circular(25.0),
           ),
           child: Center(
-              child: Text(catName,
-                  style: TextStyle(
-                      color: selected ? Colors.white : Colors.grey,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400))),
+            child: Text(
+              catName,
+              style: GoogleFonts.montserrat(
+                textStyle: TextStyle(
+                  color: selected ? Colors.white : Colors.grey,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );

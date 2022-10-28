@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/config.dart';
 import '../models/tour.dart';
@@ -29,21 +30,28 @@ Widget tourCard(Tour tour) {
               )),
           Positioned(
             bottom: 50,
-            left: 5,
+            left: 11,
             child: RichText(
               text: TextSpan(
                 text: tour.heroName,
-                style: const TextStyle(
+                style: GoogleFonts.montserrat(
+                  textStyle: const TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-                children: const [
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                children: [
                   TextSpan(
-                      text: ' by Nimal',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.amber,
-                          fontSize: 12)),
+                    text: ' by Nimal',
+                    style: GoogleFonts.montserrat(
+                      textStyle: const TextStyle(
+                        color: Colors.amber,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -55,14 +63,24 @@ Widget tourCard(Tour tour) {
                 child: Row(
                   children: [
                     Row(
-                      children: const [
-                        Icon(
+                      children: [
+                        const Icon(
                           Icons.location_pin,
                           color: Colors.amber,
+                          size: 15,
+                        ),
+                        const SizedBox(
+                          width: 5,
                         ),
                         Text(
                           "UAE",
-                          style: TextStyle(color: Colors.white),
+                          style: GoogleFonts.montserrat(
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -74,10 +92,20 @@ Widget tourCard(Tour tour) {
                         const Icon(
                           Icons.star,
                           color: Colors.amber,
+                          size: 15,
+                        ),
+                        const SizedBox(
+                          width: 5,
                         ),
                         Text(
                           "${tour.ratings}",
-                          style: const TextStyle(color: Colors.white),
+                          style: GoogleFonts.montserrat(
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         )
                       ],
                     )
@@ -91,87 +119,112 @@ Widget tourCard(Tour tour) {
 }
 
 Widget cctourCard(Tour tour) {
-  return InkWell(
-      child: Container(
-    width: 190,
-    height: 190,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(30),
-    ),
-    child: Stack(
-      children: [
-        Positioned(
-            left: 0,
-            top: 0,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: Image.network(
-                tour.heroImg,
-                width: 190,
-                height: 190,
-                fit: BoxFit.cover,
-              ),
-            )),
-        Positioned(
-          bottom: 50,
-          left: 5,
-          child: RichText(
-            text: TextSpan(
-              text: tour.heroName,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
-              children: const [
-                TextSpan(
-                    text: '',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.amber,
-                        fontSize: 12)),
-              ],
-            ),
-          ),
-        ),
-        Positioned(
-            bottom: 10,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Row(
-                    children: const [
-                      Icon(
-                        Icons.location_pin,
-                        color: Colors.amber,
-                      ),
-                      Text(
-                        "UAE",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
+  return Center(
+    child: InkWell(
+        child: Container(
+      width: 160,
+      height: 160,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+              left: 0,
+              top: 0,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: Image.network(
+                  tour.heroImg,
+                  width: 160,
+                  height: 160,
+                  fit: BoxFit.cover,
+                ),
+              )),
+          Positioned(
+            bottom: 34,
+            left: 10,
+            child: RichText(
+              text: TextSpan(
+                text: tour.heroName,
+                style: GoogleFonts.montserrat(
+                  textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
                   ),
-                  const SizedBox(
-                    width: 80,
-                  ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                      Text(
-                        "${tour.ratings}",
-                        style: const TextStyle(color: Colors.white),
-                      )
-                    ],
-                  )
+                ),
+                children: const [
+                  TextSpan(
+                      text: '',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.amber,
+                          fontSize: 12)),
                 ],
               ),
-            ))
-      ],
-    ),
-  ));
+            ),
+          ),
+          Positioned(
+              bottom: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.location_pin,
+                          color: Colors.amber,
+                          size: 15,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "UAE",
+                          style: GoogleFonts.montserrat(
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 40,
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                          size: 15,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          "${tour.ratings}",
+                          style: GoogleFonts.montserrat(
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ))
+        ],
+      ),
+    )),
+  );
 }
 
 Center addbtn({context, required Widget nextPage, required String btnText}) {

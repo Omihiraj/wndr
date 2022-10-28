@@ -4,13 +4,18 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:google_fonts/google_fonts.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:wndr/services/fire_service.dart';
 
 import '../../components/components.dart';
 import '../../constants/config.dart';
 import 'addevent.dart';
+import 'cc/cc_dashboard.dart';
 
 class AddTour extends StatefulWidget {
   const AddTour({super.key});
@@ -39,7 +44,7 @@ class _AddTourState extends State<AddTour> {
       decoration: const InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(7.0),
+            Radius.circular(12.0),
           ),
         ),
       ),
@@ -48,7 +53,7 @@ class _AddTourState extends State<AddTour> {
 
   Widget categoryList() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(top: 10, bottom: 10),
       child: SizedBox(
           height: 60,
           child: ListView.builder(
@@ -67,15 +72,27 @@ class _AddTourState extends State<AddTour> {
                     child: Container(
                       decoration: BoxDecoration(
                           color: Colors.blue,
-                          borderRadius: BorderRadius.circular(20)),
+                          borderRadius: BorderRadius.circular(12)),
                       padding: const EdgeInsets.all(20),
                       child: Row(children: [
                         Text(
                           catList[index],
-                          style: const TextStyle(color: Colors.white),
+                          style: GoogleFonts.workSans(
+                            textStyle: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
-                        const Icon(Icons.add_circle_rounded,
-                            color: Colors.white)
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const Icon(
+                          Icons.add_circle_rounded,
+                          color: Colors.white,
+                          size: 16,
+                        )
                       ]),
                     ),
                   ),
@@ -86,15 +103,15 @@ class _AddTourState extends State<AddTour> {
 
   Widget categoryBox() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(top: 8, bottom: 8),
       child: Container(
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(color: Colors.grey)),
         width: double.infinity,
         height: 200,
-        padding: const EdgeInsets.all(8),
+        //padding: const EdgeInsets.all(8),
         child: ListView.builder(
             itemCount: selectedCatList.length,
             itemBuilder: (context, index) {
@@ -137,7 +154,7 @@ class _AddTourState extends State<AddTour> {
       maxLines: 5,
       decoration: const InputDecoration(
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(Radius.circular(12)),
         ),
       ),
     );
@@ -145,9 +162,10 @@ class _AddTourState extends State<AddTour> {
 
   Widget heroImg() {
     return DottedBorder(
+      color: Colors.grey,
       borderType: BorderType.RRect,
       radius: const Radius.circular(12),
-      padding: const EdgeInsets.all(6),
+      padding: const EdgeInsets.all(7),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(12)),
         child: InkWell(
@@ -155,7 +173,7 @@ class _AddTourState extends State<AddTour> {
             pickImage();
           },
           child: Container(
-            height: 200,
+            height: 180,
             width: double.infinity,
             color: Colors.grey[200],
             child: image != null
@@ -164,11 +182,39 @@ class _AddTourState extends State<AddTour> {
                     width: double.infinity,
                   )
                 : Center(
-                    child: Row(
+                    child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text("Select Image"),
-                      Icon(Icons.add_a_photo_outlined)
+                    children: [
+                      const Icon(
+                        Icons.file_copy,
+                        color: MainColor,
+                        size: 40,
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "Choose file here...",
+                        style: GoogleFonts.workSans(
+                          textStyle: const TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                              color: SecondfontColor),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Text(
+                        "(Max file size: 50mb)",
+                        style: GoogleFonts.workSans(
+                          textStyle: const TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey),
+                        ),
+                      ),
                     ],
                   )),
           ),
@@ -224,10 +270,11 @@ class _AddTourState extends State<AddTour> {
               borderRadius: BorderRadius.all(Radius.circular(10))),
           child: Text(
             btnText,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+            style: GoogleFonts.workSans(
+              textStyle: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white),
             ),
           ),
         ),
@@ -269,14 +316,25 @@ class _AddTourState extends State<AddTour> {
           uploadFile();
         },
         child: Container(
-          width: 100,
+          width: 120,
           decoration: BoxDecoration(
               color: Colors.green, borderRadius: BorderRadius.circular(10)),
           padding: const EdgeInsets.all(10.0),
-          child:
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-            Text("Upload", style: TextStyle(color: Colors.white)),
-            Icon(Icons.upload, color: Colors.white)
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Text(
+              "Upload",
+              style: GoogleFonts.workSans(
+                textStyle: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            const Icon(Icons.upload, color: Colors.white)
           ]),
         ),
       ),
@@ -304,41 +362,55 @@ class _AddTourState extends State<AddTour> {
         elevation: 0,
         backgroundColor: BackgrounsColor,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ContentCreator()));
+          },
           icon: const Icon(Icons.arrow_back_ios),
           color: Colors.grey,
         ),
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Add a Tour',
-          style: TextStyle(
-            color: SecondfontColor,
+          style: GoogleFonts.workSans(
+            textStyle: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: SecondfontColor),
           ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10),
+        padding: const EdgeInsets.only(left: 15, right: 15),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 "Name",
-                style: TextStyle(
+                style: GoogleFonts.workSans(
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
                     color: SecondfontColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
+                  ),
+                ),
               ),
               const SizedBox(height: 5),
               name(),
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 "Categories",
-                style: TextStyle(
+                style: GoogleFonts.workSans(
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
                     color: SecondfontColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
+                  ),
+                ),
               ),
               const SizedBox(height: 5),
               categoryBox(),
@@ -346,12 +418,14 @@ class _AddTourState extends State<AddTour> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
+              Text(
                 "Hero Image",
-                style: TextStyle(
-                  color: SecondfontColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                style: GoogleFonts.workSans(
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: SecondfontColor,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -365,12 +439,14 @@ class _AddTourState extends State<AddTour> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
+              Text(
                 'Description',
-                style: TextStyle(
-                  color: SecondfontColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                style: GoogleFonts.workSans(
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: SecondfontColor,
+                  ),
                 ),
               ),
               const SizedBox(
